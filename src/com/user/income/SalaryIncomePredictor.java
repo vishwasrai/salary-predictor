@@ -46,5 +46,6 @@ public class SalaryIncomePredictor {
 
         processor.salaryIncrementCalculator(salaryDetails);
         processor.salaryDecrementCalculator(salaryDetails);
+        processor.salaryPredictionCalculator(salaryDetails);
     }
 }

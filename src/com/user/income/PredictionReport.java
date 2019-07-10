@@ -91,4 +91,8 @@ public class PredictionReport {
     public String decrementalReport() {
         return years + "\t\t\t" + starting_salary + "\t\t\t\t" + deductFrequency + "\t\t\t\t\t\t" + deduct + "\t\t\t" + totalIncrement;
     }
+
+    public String predictionReport() {
+        return years + "\t\t\t" + starting_salary + "\t\t\t\t" + totalIncrement + "\t\t\t\t\t" + totalDecrement + "\t\t\t\t" + salaryGrowth;
+    }
 }

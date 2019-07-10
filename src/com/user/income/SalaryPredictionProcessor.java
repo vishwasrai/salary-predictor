@@ -53,6 +53,34 @@ class SalaryPredictionProcessor {
         predictionReport.stream().forEach(el -> System.out.println(el.decrementalReport()));
     }
 
+    public void salaryPredictionCalculator(SalaryDetails salary) {
+
+        int yearCount = 1;
+        double totalIncrement = 0;
+        double totalDecrement;
+        double growthInSalary = 0;
+        List<PredictionReport> predictionReport = new ArrayList<>();
+
+        while (yearCount <= salary.getYears()) {
+
+            PredictionReport report = new PredictionReport();
+            report.setYears(yearCount);
+            report.setStarting_salary(calculateStartingSalary(salary, yearCount, growthInSalary));
+            totalIncrement = salary.getIncrement() * salary.getIncrement_frequency().getPeriod();
+            report.setTotalIncrement(totalIncrement);
+            totalDecrement = salary.getDeduct() * salary.getDeduct_frequency().getPeriod();
+            report.setTotalDecrement(totalDecrement);
+            double salaryGrowth= totalIncrement - totalDecrement;
+            growthInSalary = salaryGrowth > 0 ? (report.getStarting_salary() - salaryGrowth) : (report.getStarting_salary() + salaryGrowth);
+            report.setSalaryGrowth(salaryGrowth);
+            predictionReport.add(report);
+            yearCount++;
+        }
+        System.out.println("\nPREDICTION REPORT");
+        System.out.println("Year\tStarting salary\t\tIncrement Amount\t\tDecrement Amount\tSalary Growth");
+        predictionReport.stream().forEach(el -> System.out.println(el.predictionReport()));
+    }
+
     private double calculateStartingSalary(SalaryDetails salary, int yearCount, double totalIncrement) {
         return yearCount == 1 ? salary.getStarting_salary() : totalIncrement;
     }
