@@ -45,5 +45,6 @@ public class SalaryIncomePredictor {
         } while (salaryDetails.getYears() < 0);
 
         processor.salaryIncrementCalculator(salaryDetails);
+        processor.salaryDecrementCalculator(salaryDetails);
     }
 }

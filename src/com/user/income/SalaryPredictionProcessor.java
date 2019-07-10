@@ -30,6 +30,28 @@ class SalaryPredictionProcessor {
         predictionReport.stream().forEach(el -> System.out.println(el.incrementalReport()));
     }
 
+    public void salaryDecrementCalculator(SalaryDetails salary) {
+
+        int yearCount = 1;
+        double totalDecrement = 0;
+        List<PredictionReport> predictionReport = new ArrayList<>();
+
+        while (yearCount <= salary.getYears()) {
+
+            PredictionReport report = new PredictionReport();
+            report.setYears(yearCount);
+            report.setStarting_salary(calculateStartingSalary(salary, yearCount, totalDecrement));
+            report.setDeduct(salary.getDeduct());
+            report.setDeductFrequency(salary.getDeduct_frequency().getPeriod());
+            totalDecrement = calculateStartingSalary(salary, yearCount, totalDecrement) - salary.getDeduct() * salary.getDeduct_frequency().getPeriod();
+            report.setTotalIncrement(totalDecrement);
+            predictionReport.add(report);
+            yearCount++;
+        }
+        System.out.println("\nDEDUCTION REPORT");
+        System.out.println("Year\tStarting salary\t\tNumber of deduction\tDeduction %\t\tDeduction amount");
+        predictionReport.stream().forEach(el -> System.out.println(el.decrementalReport()));
+    }
 
     private double calculateStartingSalary(SalaryDetails salary, int yearCount, double totalIncrement) {
         return yearCount == 1 ? salary.getStarting_salary() : totalIncrement;
